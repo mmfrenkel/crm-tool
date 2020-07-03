@@ -9,39 +9,38 @@ import org.springframework.transaction.annotation.Transactional;
 import com.learning.springdemo.dao.CustomerDAO;
 import com.learning.springdemo.entity.Customer;
 
-
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+	// need to inject customer dao
 	@Autowired
 	private CustomerDAO customerDAO;
-
+	
 	@Override
 	@Transactional
 	public List<Customer> getCustomers() {
-
-		// delegate the call to the DAO
+		
 		return customerDAO.getCustomers();
 	}
 
 	@Override
 	@Transactional
-	public void saveCustomer(Customer customer) {
+	public void saveCustomer(Customer theCustomer) {
 
-		customerDAO.saveCustomer(customer);
+		customerDAO.saveCustomer(theCustomer);
 	}
 
 	@Override
 	@Transactional
-	public Customer getCustomerById(int customerId) {
-
-		return customerDAO.getCustomerById(customerId);
+	public Customer getCustomer(int theId) {
+		
+		return customerDAO.getCustomer(theId);
 	}
 
 	@Override
 	@Transactional
-	public void deleteCustomer(int customerId) {
-
-		customerDAO.deleteCustomer(customerId);
+	public void deleteCustomer(int theId) {
+		
+		customerDAO.deleteCustomer(theId);
 	}
 }

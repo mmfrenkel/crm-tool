@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.learning.springdemo.entity.Customer;
 
-
 public interface CustomerService {
-	
+
 	public List<Customer> getCustomers();
 
-	public void saveCustomer(Customer customer);
+	public void saveCustomer(Customer theCustomer);
 
-	public Customer getCustomerById(int customerId);
+	public Customer getCustomer(int theId);
 
-	public void deleteCustomer(int customerId);
+	public void deleteCustomer(int theId);
+	
 }
