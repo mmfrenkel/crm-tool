@@ -4,4 +4,8 @@ This repo contains a simple Spring MVC web application that uses Hibernate to pe
 
 There are also API endpoints exposed under: `/api/customer`.
 
+### Setup
+
+This project uses an all Java configuration (no xml) for Spring and uses Maven for dependency management.
+
 Original tutorial located [here](https://www.udemy.com/course/spring-hibernate-tutorial).

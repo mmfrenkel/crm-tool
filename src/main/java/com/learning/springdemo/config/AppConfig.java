@@ -16,7 +16,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -41,11 +40,11 @@ public class AppConfig implements WebMvcConfigurer {
 	public DataSource myDataSource() {
 		
 		// create connection pool
-		ComboPooledDataSource myDataSource = new ComboPooledDataSource();
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
 		// set the jdbc driver
 		try {
-			myDataSource.setDriverClass("com.mysql.jdbc.Driver");		
+			dataSource.setDriverClass("com.mysql.jdbc.Driver");		
 		}
 		catch (PropertyVetoException exc) {
 			throw new RuntimeException(exc);
@@ -55,17 +54,17 @@ public class AppConfig implements WebMvcConfigurer {
 		logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
 		
 		// set database connection props
-		myDataSource.setJdbcUrl(env.getProperty("jdbc.url"));
-		myDataSource.setUser(env.getProperty("jdbc.user"));
-		myDataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
+		dataSource.setUser(env.getProperty("jdbc.user"));
+		dataSource.setPassword(env.getProperty("jdbc.password"));
 		
 		// set connection pool props
-		myDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
-		myDataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
-		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));		
-		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
+		dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
+		dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+		dataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));		
+		dataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 
-		return myDataSource;
+		return dataSource;
 	}
 	
 	// define a bean for security data source

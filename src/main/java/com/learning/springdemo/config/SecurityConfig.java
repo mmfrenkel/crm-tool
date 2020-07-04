@@ -25,6 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
+		// ordering in most specific to least to preserve proper restrictions
 		http.authorizeRequests()
 			.antMatchers("/customer/showForm*").hasAnyRole("MANAGER", "ADMIN")
 			.antMatchers("/customer/save*").hasAnyRole("MANAGER", "ADMIN")
@@ -33,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/resources/**").permitAll()
 		.and()
 			.formLogin()
-				.loginPage(".showLoginPage")
+				.loginPage("/showLoginPage")
 				.loginProcessingUrl("/authenticateUser")
 				.permitAll()
 			.and()
