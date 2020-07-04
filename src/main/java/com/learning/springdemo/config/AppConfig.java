@@ -28,8 +28,9 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan("com.learning.springdemo")
-@PropertySource({ "classpath:persistence-mysql.properties" })
-public class DemoAppConfig implements WebMvcConfigurer {
+@PropertySource({ "classpath:persistence-mysql.properties", 
+	"classpath:security-persistence-mysql.properties" })
+public class AppConfig implements WebMvcConfigurer {
 
 	@Autowired
 	private Environment env;
@@ -67,6 +68,33 @@ public class DemoAppConfig implements WebMvcConfigurer {
 		return myDataSource;
 	}
 	
+	// define a bean for security data source
+	@Bean
+	public DataSource securityDataSource() {
+	// create connection pool 
+	
+		ComboPooledDataSource securityDataSource = new ComboPooledDataSource(); 
+		
+		// set the jdbc driver class
+		try {
+			securityDataSource.setDriverClass(env.getProperty("security.jdbc.driver")); 
+		} catch (PropertyVetoException exc) {
+			throw new RuntimeException(exc); 
+		}
+		// set database connection props
+		securityDataSource.setJdbcUrl(env.getProperty("security.jdbc.url")); 
+		securityDataSource.setUser(env.getProperty("security.jdbc.user"));
+		securityDataSource.setPassword(env.getProperty("security.jdbc.password")); 
+		
+		// set connection pool props
+		securityDataSource.setInitialPoolSize(getIntProperty("security.connection.pool.initialPoolSize"));
+		securityDataSource.setMinPoolSize(getIntProperty("security.connection.pool.minPoolSize"));
+		securityDataSource.setMaxPoolSize(getIntProperty("security.connection.pool.maxPoolSize"));
+		securityDataSource.setMaxIdleTime(getIntProperty("security.connection.pool.maxIdleTime"));
+		
+		return securityDataSource;
+	}
+	
 	private Properties getHibernateProperties() {
 
 		Properties props = new Properties();
@@ -76,10 +104,6 @@ public class DemoAppConfig implements WebMvcConfigurer {
 		
 		return props;				
 	}
-
-	private int getIntProperty(String propName) {
-		return Integer.parseInt(env.getProperty(propName));
-	}	
 	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory(){
@@ -117,6 +141,10 @@ public class DemoAppConfig implements WebMvcConfigurer {
 		txManager.setSessionFactory(sessionFactory);
 
 		return txManager;
+	}	
+	
+	private int getIntProperty(String propName) {
+		return Integer.parseInt(env.getProperty(propName));
 	}	
 	
 }
