@@ -6,4 +6,5 @@ bin/
 .git
 .DS_Store
 build
+target/
 

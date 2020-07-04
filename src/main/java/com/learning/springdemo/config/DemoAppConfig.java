@@ -95,6 +95,11 @@ public class DemoAppConfig implements WebMvcConfigurer {
 		return sessionFactory;
 	}
 	
+	@Override
+	public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+	    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+	
 	@Bean
 	public InternalResourceViewResolver resolver() {
 	    InternalResourceViewResolver vr = new InternalResourceViewResolver();
