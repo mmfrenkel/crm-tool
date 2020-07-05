@@ -2,6 +2,7 @@ package com.learning.springdemo.config;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	// add a reference to our security data source @Autowired
+	@Autowired
 	private DataSource securityDataSource;
 	
 	@Override
@@ -34,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/resources/**").permitAll()
 		.and()
 			.formLogin()
-				.loginPage("/showLoginPage")
+				.loginPage("/loginPage")
 				.loginProcessingUrl("/authenticateUser")
 				.permitAll()
 			.and()
