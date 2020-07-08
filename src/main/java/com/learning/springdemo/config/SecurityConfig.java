@@ -19,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	// use jdbc authentication 
+		// use jdbc authentication 
 		auth.jdbcAuthentication().dataSource(securityDataSource);
 	}
 	
@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout()
 				.permitAll()
 			.and()
-				.exceptionHandling().accessDeniedPage("/access-denied");
+				.exceptionHandling().accessDeniedPage("/accessDenied");
 			
 	}
 }
