@@ -21,7 +21,7 @@
        
         <div id="wrapper">
             <div id="header">
-                <h2>CRM - Customer Relationship Manager</h2>
+                <h2>SalesTracker</h2>
             </div>
         </div>
         
