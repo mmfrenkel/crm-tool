@@ -6,12 +6,15 @@
 <html>
 	<head>
 	   
-	   <title>CRM Tool</title>
-	   
-	   <!-- Reference style sheet -->
-	   <link type="text/css" rel="stylesheet" 
-	         href="${pageContext.request.contextPath}/resources/css/style.css"/>
-	
+		<title>CRM Tool</title>
+		
+		<!-- Reference style sheet -->
+		<link type="text/css" rel="stylesheet" 
+		      href="${pageContext.request.contextPath}/resources/css/style.css"/>
+		            
+		<link rel="stylesheet"
+		     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+         
 	</head>
 	
 	<body>
@@ -34,7 +37,7 @@
 		           />
 		       </security:authorize>
 		       
-	           <table>
+	           <table class="table table-bordered table-striped" id="customer-list">
 	               <tr>
 	                   <th>First Name</th>
 	                   <th>Last Name</th>
